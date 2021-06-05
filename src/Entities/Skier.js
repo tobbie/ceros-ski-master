@@ -22,16 +22,25 @@ export class Skier extends Entity {
     }
 
     move() {
-        switch(this.direction) {
-            case Constants.SKIER_DIRECTIONS.LEFT_DOWN:
-                this.moveSkierLeftDown();
-                break;
-            case Constants.SKIER_DIRECTIONS.DOWN:
-                this.moveSkierDown();
-                break;
-            case Constants.SKIER_DIRECTIONS.RIGHT_DOWN:
-                this.moveSkierRightDown();
-                break;
+        switch (this.direction) {
+          case Constants.SKIER_DIRECTIONS.LEFT_DOWN:
+            this.moveSkierLeftDown();
+            break;
+          case Constants.SKIER_DIRECTIONS.DOWN:
+            this.moveSkierDown();
+            break;
+          case Constants.SKIER_DIRECTIONS.RIGHT:
+            this.moveSkierRight();
+            break;
+          case Constants.SKIER_DIRECTIONS.LEFT:
+            this.moveSkierLeft();
+            break;
+          case Constants.SKIER_DIRECTIONS.UP:
+            this.moveSkierUp();
+            break;
+          case Constants.SKIER_DIRECTIONS.RIGHT_DOWN:
+            this.moveSkierRightDown();
+            break;
         }
     }
 
@@ -62,27 +71,31 @@ export class Skier extends Entity {
     }
 
     turnLeft() {
-        if(this.direction === Constants.SKIER_DIRECTIONS.LEFT) {
-            this.moveSkierLeft();
-        }
-        else {
-            this.setDirection(this.direction - 1);
-        }
+        // if(this.direction === Constants.SKIER_DIRECTIONS.LEFT) {
+        //     this.moveSkierLeft();
+        // }
+        // else {
+        //   this.setDirection(this.direction - 1);
+        // }
+         this.setDirection(Constants.SKIER_DIRECTIONS.LEFT);
     }
 
     turnRight() {
-        if(this.direction === Constants.SKIER_DIRECTIONS.RIGHT) {
-            this.moveSkierRight();
-        }
-        else {
-            this.setDirection(this.direction + 1);
-        }
+        // if(this.direction === Constants.SKIER_DIRECTIONS.RIGHT) {
+        //     this.moveSkierRight();
+        // }
+        // else {
+        //     this.setDirection(this.direction + 1);
+        // }
+
+         this.setDirection(Constants.SKIER_DIRECTIONS.RIGHT);
     }
 
     turnUp() {
         if(this.direction === Constants.SKIER_DIRECTIONS.LEFT || this.direction === Constants.SKIER_DIRECTIONS.RIGHT) {
             this.moveSkierUp();
         }
+        
     }
 
     turnDown() {
