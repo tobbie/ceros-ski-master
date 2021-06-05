@@ -29,11 +29,19 @@ unclear, don't hesitate to reach out.
     1. Press the left arrow key
   * Expected Result: The skier gets up and is facing to the left
   * Actual Result: Giant blizzard occurs causing the screen to turn completely white (or maybe the game just crashes!)
+
+* **BugFixes **
+  * skier only moves on press of right arrow button It should keep moving
+  * skier only moves on press of right arrow button. It should keep moving
+
   
 * **Write unit tests:**
 
   The base code has Jest, a unit testing framework, installed. Write some unit tests to ensure that the above mentioned
   bug does not come back.
+
+* ** Added Skier Unit Tests: **
+  *Added unit test for all directions functionality
   
 * **Extend existing functionality:**
 
