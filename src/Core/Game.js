@@ -1,30 +1,30 @@
-import * as Constants from "../Constants";
-import { AssetManager } from "./AssetManager";
-import { Canvas } from './Canvas';
-import { Skier } from "../Entities/Skier";
-import { ObstacleManager } from "../Entities/Obstacles/ObstacleManager";
-import { Rect } from './Utils';
-import {Rhino} from '../Entities/Rhino'
+import * as Constants from "../constants/consts";
+import { AssetService} from "../services/assetService";
+import { Canvas } from './canvas';
+import { Skier } from "../models/skier";
+import { ObstacleService } from "../services/obstacleService";
+import { Rect } from '../utilities/utils';
+import {Rhino} from '../models/rhino'
 
 export class Game {
     gameWindow = null;
 
     constructor() {
-        this.assetManager = new AssetManager();
+        this.assetService = new AssetService();
         this.canvas = new Canvas(Constants.GAME_WIDTH, Constants.GAME_HEIGHT);
         this.skier = new Skier(0, 0);
-        this.obstacleManager = new ObstacleManager();
+        this.obstacleService = new ObstacleService();
         this.rhino = new Rhino(0, 0);
 
         document.addEventListener('keydown', this.handleKeyDown.bind(this));
     }
 
     init() {
-        this.obstacleManager.placeInitialObstacles();
+        this.obstacleService.placeInitialObstacles();
     }
 
     async load() {
-        await this.assetManager.loadAssets(Constants.ASSETS);
+        await this.assetService.loadAssets(Constants.ASSETS);
     }
 
     run() {
@@ -42,21 +42,27 @@ export class Game {
         const previousGameWindow = this.gameWindow;
         this.calculateGameWindow();
 
-        this.obstacleManager.placeNewObstacle(this.gameWindow, previousGameWindow);
+        this.obstacleService.placeNewObstacle(
+          this.gameWindow,
+          previousGameWindow
+        );
 
-        this.skier.checkIfSkierHitObstacle(this.obstacleManager, this.assetManager);
+        this.skier.checkIfSkierHitObstacle(
+          this.obstacleService,
+          this.assetService
+        );
 
         this.rhino.move(this.skier);
-        this.rhino.destroySkier(this.assetManager, this.skier);
+        this.rhino.destroySkier(this.assetService, this.skier);
         this.rhino.updateAction(this.skier);
     }
 
     drawGameWindow() {
         this.canvas.setDrawOffset(this.gameWindow.left, this.gameWindow.top);
 
-        this.skier.draw(this.canvas, this.assetManager);
-        this.obstacleManager.drawObstacles(this.canvas, this.assetManager);
-        this.rhino.drawRhino(this.canvas, this.assetManager);
+        this.skier.draw(this.canvas, this.assetService);
+        this.obstacleService.drawObstacles(this.canvas, this.assetService);
+        this.rhino.drawRhino(this.canvas, this.assetService);
     }
 
     calculateGameWindow() {

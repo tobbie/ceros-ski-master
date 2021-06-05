@@ -1,6 +1,6 @@
-import * as Constants from "../Constants";
-import { Entity } from "./Entity";
-import { intersectTwoRects, Rect } from "../Core/Utils";
+import * as Constants from "../constants/consts";
+import { Entity } from "./entity";
+import { intersectTwoRects, Rect } from "../utilities/utils";
 
 const RHINO_SKIER_STARTING_DISTANCE = 3000;
 const ACTION_DURATION = 700;

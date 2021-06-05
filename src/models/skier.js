@@ -1,6 +1,6 @@
-import * as Constants from "../Constants";
-import { Entity } from "./Entity";
-import { intersectTwoRects, Rect } from "../Core/Utils";
+import * as Constants from "../constants/consts";
+import { Entity } from "./entity";
+import { intersectTwoRects, Rect } from "../utilities/utils";
 
 export class Skier extends Entity {
   assetName = Constants.SKIER_DOWN;
@@ -67,7 +67,7 @@ export class Skier extends Entity {
   }
 
   moveSkierUp() {
-     this.y += this.speed;
+    this.y += this.speed;
   }
 
   turnLeft() {
@@ -137,10 +137,10 @@ export class Skier extends Entity {
         obstaclePosition.x + obstacleAsset.width / 2,
         obstaclePosition.y
       );
-        
+
       const result = intersectTwoRects(skierBounds, obstacleBounds);
-        if (result && this.checkSkierJumpStatus(obstacleName)) return false;
-            
+      if (result && this.checkSkierJumpStatus(obstacleName)) return false;
+
       return result;
     });
 

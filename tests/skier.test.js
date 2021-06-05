@@ -1,5 +1,5 @@
 import "babel-polyfill";
-import { Skier } from "../Entities/Skier";
+import { Skier } from "../src/models/skier";
 
 describe("Skier should move in this direction", () => {
   let skier, exp_left, exp_right, left_speed, right_speed;
