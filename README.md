@@ -66,6 +66,9 @@ unclear, don't hesitate to reach out.
     we've provided to animate the rhino.
   * If the rhino catches the skier, it's game over and the rhino should eat the skier. 
 
+* **Destroy Skier
+  *A Rhino Appears after a particular time and eats up the Skier
+
 * **Documentation:**
 
   * Update this README file with your comments about your work; what was done, what wasn't, features added & known bugs.
