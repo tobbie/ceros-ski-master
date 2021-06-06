@@ -18,6 +18,14 @@ export default class Rhino extends Entity {
     super(x, y);
   }
 
+  restartRhino(){
+        this.assetName = Constants.RHINO_RUN_LEFT;
+        this.action = Constants.RHINO_ACTIONS.CHASE_SKIER;
+        this.x = 0;
+        this.y = 0;
+
+  };
+
   drawRhino(canvas: Canvas, assetManager: AssetManager) {
     if (this.y >= RHINO_SKIER_STARTING_DISTANCE) {
       this.draw(canvas, assetManager);

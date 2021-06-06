@@ -48,12 +48,18 @@ export default class Game  {
     this.calculateGameWindow();
 
     this.obstacleService.placeNewObstacle(this.gameWindow, previousGameWindow);
-    //this.skier.setDirection(Constants.SKIER_DIRECTIONS.LEFT);
     this.skier.checkIfSkierHitObstacle(this.obstacleService, this.assetManager);
 
     this.rhino.move(this.skier);
     this.rhino.endIfRhinoCatchSkier(this.assetManager, this.skier);
     this.rhino.updateAction(this.skier);
+    
+  }
+
+  resetGame(){
+      this.skier.restartSkier();
+      this.rhino.restartRhino();
+      this.obstacleService.restartObstacle();
   }
 
   drawGameWindow() {
@@ -96,6 +102,10 @@ export default class Game  {
         break;
       case Constants.KEYS.SPACE:
         this.skier.pause();
+        event.preventDefault();
+        break;
+      case Constants.KEYS.Reset:
+        this.resetGame();
         event.preventDefault();
         break;
     }
