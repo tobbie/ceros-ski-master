@@ -99,7 +99,7 @@ code before taking on any of the bonus.*
 If you're having fun with this, feel free to add more to it. Here's some ideas or come up with your own. We love seeing 
 how creative candidates get with this.
  
-* Provide a way to reset the game once it's over
+* Provide a way to reset the game once it's over🥇
 * Provide a way to pause and resume the game 🥇
 * Add a score that increments as the skier skis further
 * Increase the difficulty the longer the skier skis (increase speed, increase obstacle frequency, etc.)
