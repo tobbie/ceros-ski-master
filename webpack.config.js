@@ -23,7 +23,8 @@ module.exports = {
     extensions: [".ts", ".js", ".tsx"],
   },
   output: {
+    path: __dirname,
+    publicPath: "/",
     filename: "bundle.js",
-    path: path.resolve(__dirname, "dist"),
   },
 };
