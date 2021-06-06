@@ -7,6 +7,7 @@ import GameService from "./services/gameService";
 const startGame = async () => {
   const gameService = Container.get(GameService);
   gameService.load().then(() => {
+
     gameService.init();
     gameService.run();
   });

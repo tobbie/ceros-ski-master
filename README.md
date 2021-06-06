@@ -107,3 +107,7 @@ how creative candidates get with this.
 * Write more unit tests for your code
 
 We are looking forward to see what you come up with!
+
+* Additional
+* Added Pause functionality
+* Known issue: if skier hits rock and game is paused. if game is resumed, skier moves instead of stucked to the tree
