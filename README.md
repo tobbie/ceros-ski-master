@@ -113,3 +113,4 @@ We are looking forward to see what you come up with!
 * Known issue: if skier hits rock and game is paused. if game is resumed, skier moves instead of stucked to the tree
 * Added reset feature that can be invoked at any point in the game. Known issue: when game is over, the reset button has to be pressed twice
 * Deployed the app to https://cerosja.herokuapp.com using github workflows for continuous integration and continuous deployment
+* Added Score 

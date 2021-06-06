@@ -63,4 +63,10 @@ export default class Canvas {
 
     this.ctx.drawImage(image, x, y, width, height);
   }
+
+  drawText(font: string, color: string, text: string, x:number, y:number){
+    this.ctx.font = font;
+    this.ctx.fillStyle = color;
+    this.ctx.fillText(text, x,y);
+  }
 }

@@ -6,21 +6,23 @@ import Skier from "../services/skierService"
 import { Rect } from "../utilities/utils";
 import Rhino from "../services/rhinoService"
 import { Service } from "typedi";
+import Score from "./scoreService";
 
 @Service()
-export default class Game  {
+export default class Game {
   gameWindow: Rect = new Rect(0, 0, 0, 0);
-
   constructor(
     private assetManager: AssetManager,
     private obstacleService: ObstacleService,
     private skier: Skier,
     private canvas: Canvas,
-    private rhino: Rhino
+    private rhino: Rhino,
+    private score: Score
   ) {
     this.skier = new Skier(0, 0);
     this.canvas = new Canvas(Constants.GAME_WIDTH, Constants.GAME_HEIGHT);
     this.rhino = new Rhino(0, 0);
+    this.score = new Score(0, 0);
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
   }
 
@@ -43,28 +45,27 @@ export default class Game  {
 
   updateGameWindow() {
     this.skier.move();
-
     const previousGameWindow = this.gameWindow;
     this.calculateGameWindow();
 
     this.obstacleService.placeNewObstacle(this.gameWindow, previousGameWindow);
     this.skier.checkIfSkierHitObstacle(this.obstacleService, this.assetManager);
-
+    this.score.updateScore(this.skier);
     this.rhino.move(this.skier);
     this.rhino.endIfRhinoCatchSkier(this.assetManager, this.skier);
     this.rhino.updateAction(this.skier);
-    
   }
 
-  resetGame(){
-      this.skier.restartSkier();
-      this.rhino.restartRhino();
-      this.obstacleService.restartObstacle();
+  resetGame() {
+    this.skier.restartSkier();
+    this.rhino.restartRhino();
+    this.obstacleService.restartObstacle();
+    this.score.resetScore();
   }
 
   drawGameWindow() {
     this.canvas.setDrawOffset(this.gameWindow.left, this.gameWindow.top);
-
+    this.score.drawScore(this.canvas);
     this.skier.draw(this.canvas, this.assetManager);
     this.obstacleService.drawObstacles(this.canvas, this.assetManager);
     this.rhino.drawRhino(this.canvas, this.assetManager);
@@ -110,6 +111,4 @@ export default class Game  {
         break;
     }
   }
-
- 
 }
