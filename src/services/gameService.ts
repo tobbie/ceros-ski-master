@@ -48,7 +48,7 @@ export default class Game  {
     this.calculateGameWindow();
 
     this.obstacleService.placeNewObstacle(this.gameWindow, previousGameWindow);
-
+    //this.skier.setDirection(Constants.SKIER_DIRECTIONS.LEFT);
     this.skier.checkIfSkierHitObstacle(this.obstacleService, this.assetManager);
 
     this.rhino.move(this.skier);
@@ -92,6 +92,10 @@ export default class Game  {
         break;
       case Constants.KEYS.DOWN:
         this.skier.turnDown();
+        event.preventDefault();
+        break;
+      case Constants.KEYS.SPACE:
+        this.skier.pause();
         event.preventDefault();
         break;
     }

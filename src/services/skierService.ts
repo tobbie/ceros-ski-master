@@ -7,10 +7,11 @@ import AssetManager from "../loaders/assetManager";
 
 @Service()
 export default class Skier extends Entity {
-  assetName = Constants.SKIER_DOWN;
-
-  direction = Constants.SKIER_DIRECTIONS.DOWN;
-  speed = Constants.SKIER_STARTING_SPEED;
+  assetName: string = Constants.SKIER_DOWN;
+  isPaused: boolean = false;
+  direction: number = Constants.SKIER_DIRECTIONS.DOWN;
+  lastDirection: number = this.direction;
+  speed: number = Constants.SKIER_STARTING_SPEED;
 
   constructor(x: number, y: number) {
     super(x, y);
@@ -21,6 +22,9 @@ export default class Skier extends Entity {
     this.updateAsset();
   }
 
+  setLastDirection(direction: number) {
+    this.lastDirection = direction;
+  }
   updateAsset() {
     this.assetName = Constants.SKIER_DIRECTION_ASSET[this.direction];
   }
@@ -76,18 +80,37 @@ export default class Skier extends Entity {
 
   turnLeft() {
     this.setDirection(Constants.SKIER_DIRECTIONS.LEFT);
+    this.updateLastDirection();
   }
 
   turnRight() {
     this.setDirection(Constants.SKIER_DIRECTIONS.RIGHT);
+    this.updateLastDirection();
   }
 
   turnUp() {
     this.setDirection(Constants.SKIER_DIRECTIONS.UP);
+    this.updateLastDirection();
   }
 
   turnDown() {
     this.setDirection(Constants.SKIER_DIRECTIONS.DOWN);
+    this.updateLastDirection();
+  }
+
+  pause() {
+    if (this.isPaused){
+      this.setDirection(this.lastDirection);
+      this.isPaused = false;
+    }
+    else {
+      this.isPaused = true;
+      this.setDirection(Constants.SKIER_DIRECTIONS.PAUSE);
+    }
+  }
+
+  updateLastDirection() {
+    this.setLastDirection(this.direction);
   }
 
   setSkierJumpOverRock(obstacleName: string) {
@@ -112,7 +135,10 @@ export default class Skier extends Entity {
     );
   }
 
-  checkIfSkierHitObstacle(obstacleService: ObstacleService, assetManager: AssetManager) {
+  checkIfSkierHitObstacle(
+    obstacleService: ObstacleService,
+    assetManager: AssetManager
+  ) {
     const asset = assetManager.getAsset(this.assetName);
     const skierBounds = new Rect(
       this.x - asset.width / 2,
