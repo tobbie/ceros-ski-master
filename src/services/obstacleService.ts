@@ -1,5 +1,5 @@
-import * as Constants from "../constants/consts";
-import { randomInt } from "../utilities/utils";
+import * as Constants from '../constants/consts';
+import { randomInt } from '../utilities/utils';
 import { Obstacle } from "../models/obstacle";
 
 const DISTANCE_BETWEEN_OBSTACLES = 50;
@@ -7,8 +7,8 @@ const STARTING_OBSTACLE_GAP = 100;
 const STARTING_OBSTACLE_REDUCER = 300;
 const NEW_OBSTACLE_CHANCE = 8;
 
-export class ObstacleService {
-  obstacles = [];
+export default class ObstacleManager {
+  obstacles:any = [];
 
   constructor() {}
 
@@ -16,7 +16,7 @@ export class ObstacleService {
     return this.obstacles;
   }
 
-  drawObstacles(canvas, assetManager) {
+  drawObstacles(canvas:any, assetManager:any) {
     this.obstacles.forEach((obstacle) => {
       obstacle.draw(canvas, assetManager);
     });
@@ -42,7 +42,7 @@ export class ObstacleService {
     });
   }
 
-  placeNewObstacle(gameWindow, previousGameWindow) {
+  placeNewObstacle(gameWindow:any, previousGameWindow:any) {
     const shouldPlaceObstacle = randomInt(1, NEW_OBSTACLE_CHANCE);
     if (shouldPlaceObstacle !== NEW_OBSTACLE_CHANCE) {
       return;
@@ -61,7 +61,7 @@ export class ObstacleService {
     }
   }
 
-  placeObstacleLeft(gameWindow) {
+  placeObstacleLeft(gameWindow:any) {
     this.placeRandomObstacle(
       gameWindow.left,
       gameWindow.left,
@@ -70,7 +70,7 @@ export class ObstacleService {
     );
   }
 
-  placeObstacleRight(gameWindow) {
+  placeObstacleRight(gameWindow:any) {
     this.placeRandomObstacle(
       gameWindow.right,
       gameWindow.right,
@@ -79,7 +79,7 @@ export class ObstacleService {
     );
   }
 
-  placeObstacleTop(gameWindow) {
+  placeObstacleTop(gameWindow:any) {
     this.placeRandomObstacle(
       gameWindow.left,
       gameWindow.right,
@@ -88,7 +88,7 @@ export class ObstacleService {
     );
   }
 
-  placeObstacleBottom(gameWindow) {
+  placeObstacleBottom(gameWindow:any) {
     this.placeRandomObstacle(
       gameWindow.left,
       gameWindow.right,
@@ -97,14 +97,19 @@ export class ObstacleService {
     );
   }
 
-  placeRandomObstacle(minX, maxX, minY, maxY) {
+  placeRandomObstacle(minX: number, maxX: number, minY: number, maxY: number) {
     const position = this.calculateOpenPosition(minX, maxX, minY, maxY);
     const newObstacle = new Obstacle(position.x, position.y);
 
     this.obstacles.push(newObstacle);
   }
 
-  calculateOpenPosition(minX, maxX, minY, maxY) {
+  calculateOpenPosition(
+    minX: number,
+    maxX: number,
+    minY: number,
+    maxY: number
+  ) {
     const x = randomInt(minX, maxX);
     const y = randomInt(minY, maxY);
 

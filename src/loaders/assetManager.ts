@@ -1,10 +1,10 @@
-export class AssetService {
-  loadedAssets = [];
+export default class AssetManager {
+  loadedAssets:any = [];
 
   constructor() {}
 
-  async loadAssets(assets) {
-    const assetPromises = [];
+  async loadAssets(assets:[]) {
+    const assetPromises:any = [];
 
     for (const [assetName, assetUrl] of Object.entries(assets)) {
       const assetPromise = this.loadSingleAsset(assetUrl, assetName);
@@ -14,8 +14,8 @@ export class AssetService {
     await Promise.all(assetPromises);
   }
 
-  loadSingleAsset(assetUrl, assetName) {
-    return new Promise((resolve) => {
+  loadSingleAsset(assetUrl:string, assetName:string) {
+    return new Promise<void>((resolve) => {
       const assetImage = new Image();
       assetImage.onload = () => {
         assetImage.width /= 2;
@@ -28,7 +28,7 @@ export class AssetService {
     });
   }
 
-  getAsset(assetName) {
+  getAsset(assetName:string) {
     return this.loadedAssets[assetName];
   }
 }
