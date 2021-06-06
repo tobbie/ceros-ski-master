@@ -1,5 +1,5 @@
 module.exports = {
-  preset: "ts-jest",
+  preset: "jest-playwright-jsdom",
   transform: {
     "^.+\\.(ts|tsx)?$": "ts-jest",
     "^.+\\.(js|jsx)$": "babel-jest",

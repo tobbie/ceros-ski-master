@@ -1,4 +1,7 @@
+import { Service } from "typedi";
 import * as Constants from "../constants/consts";
+import AssetManager from "../loaders/assetManager";
+import Canvas from "../loaders/canvas";
 import Entity  from "../loaders/entity";
 import { intersectTwoRects, Rect } from "../utilities/utils";
 import Skier from "./skierService";
@@ -6,6 +9,7 @@ import Skier from "./skierService";
 const RHINO_SKIER_STARTING_DISTANCE = 3000;
 const ACTION_DURATION = 700;
 
+@Service()
 export default class Rhino extends Entity {
   assetName = Constants.RHINO_RUN_LEFT;
   action = Constants.RHINO_ACTIONS.CHASE_SKIER;
@@ -14,7 +18,7 @@ export default class Rhino extends Entity {
     super(x, y);
   }
 
-  drawRhino(canvas: any, assetManager: any) {
+  drawRhino(canvas: Canvas, assetManager: AssetManager) {
     if (this.y >= RHINO_SKIER_STARTING_DISTANCE) {
       this.draw(canvas, assetManager);
     }
@@ -62,7 +66,7 @@ export default class Rhino extends Entity {
     this.x = skier_position_y - RHINO_SKIER_STARTING_DISTANCE * 2;
   }
 
-  endIfRhinoCatchSkier(assetManager:any, skier:Skier) {
+  endIfRhinoCatchSkier(assetManager: AssetManager, skier: Skier) {
     if (this.action === Constants.RHINO_ACTIONS.CHASE_SKIER) {
       const asset = assetManager.getAsset(this.assetName);
       const RhinoBounds = new Rect(
@@ -88,14 +92,14 @@ export default class Rhino extends Entity {
     }
   }
 
-  removeSkier(skier:Skier) {
+  removeSkier(skier: Skier) {
     skier.direction = Constants.SKIER_DIRECTIONS.KILL;
     skier.y = this.y;
     skier.x = this.x;
     skier.assetName = Constants.KILL_SKIER;
   }
 
-  setAction(action:any) {
+  setAction(action: number) {
     this.action = action;
     this.updateAsset();
   }
@@ -104,7 +108,7 @@ export default class Rhino extends Entity {
     this.assetName = Constants.RHINO_ACTION_ASSET[this.action];
   }
 
-  updateAction(skier:Skier) {
+  updateAction(skier: Skier) {
     if (this.action) {
       this.removeSkier(skier);
       switch (this.action) {
@@ -124,7 +128,7 @@ export default class Rhino extends Entity {
     }
   }
 
-  changeAction(rhinoAction:any) {
+  changeAction(rhinoAction: number) {
     var _this = this;
     setTimeout(function () {
       _this.setAction(rhinoAction);

@@ -1,18 +1,22 @@
+import { Service } from "typedi";
 import * as Constants from "../constants/consts";
 import  Entity  from "../loaders/entity";
 import { intersectTwoRects, Rect } from "../utilities/utils";
+import ObstacleService from "../services/obstacleService"
+import AssetManager from "../loaders/assetManager";
 
+@Service()
 export default class Skier extends Entity {
   assetName = Constants.SKIER_DOWN;
 
   direction = Constants.SKIER_DIRECTIONS.DOWN;
   speed = Constants.SKIER_STARTING_SPEED;
 
-  constructor(x:number, y:number) {
+  constructor(x: number, y: number) {
     super(x, y);
   }
 
-  setDirection(direction:number) {
+  setDirection(direction: number) {
     this.direction = direction;
     this.updateAsset();
   }
@@ -86,7 +90,7 @@ export default class Skier extends Entity {
     this.setDirection(Constants.SKIER_DIRECTIONS.DOWN);
   }
 
-  setSkierJumpOverRock(obstacleName) {
+  setSkierJumpOverRock(obstacleName: string) {
     if (
       this.direction === Constants.SKIER_DIRECTIONS.UP &&
       (obstacleName === Constants.ROCK1 || obstacleName === Constants.ROCK2)
@@ -94,21 +98,21 @@ export default class Skier extends Entity {
       return true;
   }
 
-  makeSkierJumpIfHitRamp(obstacleName) {
+  makeSkierJumpIfHitRamp(obstacleName: string) {
     if (obstacleName === Constants.JUMP_RAMP) {
       this.turnUp();
       return true;
     }
   }
 
-  CheckIfSkierShouldJump(obstacleName) {
+  CheckIfSkierShouldJump(obstacleName: string) {
     return (
       this.setSkierJumpOverRock(obstacleName) ||
       this.makeSkierJumpIfHitRamp(obstacleName)
     );
   }
 
-  checkIfSkierHitObstacle(obstacleManager, assetManager) {
+  checkIfSkierHitObstacle(obstacleService: ObstacleService, assetManager: AssetManager) {
     const asset = assetManager.getAsset(this.assetName);
     const skierBounds = new Rect(
       this.x - asset.width / 2,
@@ -117,7 +121,7 @@ export default class Skier extends Entity {
       this.y - asset.height / 4
     );
 
-    const collision = obstacleManager.getObstacles().find((obstacle) => {
+    const collision = obstacleService.getObstacles().find((obstacle) => {
       const obstacleName = obstacle.getAssetName();
       const obstacleAsset = assetManager.getAsset(obstacleName);
       const obstaclePosition = obstacle.getPosition();

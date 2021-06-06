@@ -1,12 +1,16 @@
 import * as Constants from '../constants/consts';
 import { randomInt } from '../utilities/utils';
 import { Obstacle } from "../models/obstacle";
+import { Service } from 'typedi';
+import Canvas from '../loaders/canvas';
+import AssetManager from '../loaders/assetManager';
 
 const DISTANCE_BETWEEN_OBSTACLES = 50;
 const STARTING_OBSTACLE_GAP = 100;
 const STARTING_OBSTACLE_REDUCER = 300;
 const NEW_OBSTACLE_CHANCE = 8;
 
+@Service()
 export default class ObstacleManager {
   obstacles:any = [];
 
@@ -16,7 +20,7 @@ export default class ObstacleManager {
     return this.obstacles;
   }
 
-  drawObstacles(canvas:any, assetManager:any) {
+  drawObstacles(canvas:Canvas, assetManager:AssetManager) {
     this.obstacles.forEach((obstacle) => {
       obstacle.draw(canvas, assetManager);
     });
