@@ -103,7 +103,7 @@ how creative candidates get with this.
 * Provide a way to pause and resume the game 🥇
 * Add a score that increments as the skier skis further
 * Increase the difficulty the longer the skier skis (increase speed, increase obstacle frequency, etc.)
-* Deploy the game to a server so that we can play it without having to install it locally
+* Deploy the game to a server so that we can play it without having to install it locally🥇 
 * Write more unit tests for your code
 
 We are looking forward to see what you come up with!
@@ -112,3 +112,4 @@ We are looking forward to see what you come up with!
 * Added Pause functionality
 * Known issue: if skier hits rock and game is paused. if game is resumed, skier moves instead of stucked to the tree
 * Added reset feature that can be invoked at any point in the game. Known issue: when game is over, the reset button has to be pressed twice
+* Deployed the app to https://cerosja.herokuapp.com using github workflows for continuous integration and continuous deployment
