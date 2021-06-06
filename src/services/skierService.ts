@@ -17,6 +17,16 @@ export default class Skier extends Entity {
     super(x, y);
   }
 
+  restartSkier() {
+    this.assetName = Constants.SKIER_DOWN;
+    this.isPaused = false;
+    this.direction = Constants.SKIER_DIRECTIONS.DOWN;
+    this.lastDirection = this.direction;
+    this.speed = Constants.SKIER_STARTING_SPEED;
+    this.x = 0;
+    this.y = 0;
+  }
+
   setDirection(direction: number) {
     this.direction = direction;
     this.updateAsset();
@@ -99,11 +109,10 @@ export default class Skier extends Entity {
   }
 
   pause() {
-    if (this.isPaused){
+    if (this.isPaused) {
       this.setDirection(this.lastDirection);
       this.isPaused = false;
-    }
-    else {
+    } else {
       this.isPaused = true;
       this.setDirection(Constants.SKIER_DIRECTIONS.PAUSE);
     }

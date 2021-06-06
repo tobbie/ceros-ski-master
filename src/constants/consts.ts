@@ -78,6 +78,7 @@ export const KEYS = {
   UP: 38,
   DOWN: 40,
   SPACE: 32,
+  Reset: 82
 };
 
 export const RHINO_ACTIONS = {
