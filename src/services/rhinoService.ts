@@ -101,6 +101,7 @@ export default class Rhino extends Entity {
   }
 
   removeSkier(skier: Skier) {
+    skier.isCrashed = true;
     skier.direction = Constants.SKIER_DIRECTIONS.KILL;
     skier.y = this.y;
     skier.x = this.x;

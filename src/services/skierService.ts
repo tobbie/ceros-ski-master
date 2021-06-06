@@ -12,7 +12,7 @@ export default class Skier extends Entity {
   direction: number = Constants.SKIER_DIRECTIONS.DOWN;
   lastDirection: number = this.direction;
   speed: number = Constants.SKIER_STARTING_SPEED;
-
+  isCrashed: boolean = false;
   constructor(x: number, y: number) {
     super(x, y);
   }
@@ -178,6 +178,7 @@ export default class Skier extends Entity {
     });
 
     if (collision) {
+      this.isCrashed = true;
       this.setDirection(Constants.SKIER_DIRECTIONS.CRASH);
     }
   }
