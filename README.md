@@ -115,10 +115,12 @@ We are looking forward to see what you come up with!
 * Deployed the app to https://cerosja.herokuapp.com using github workflows for continuous integration and continuous deployment
 * Added Score 
 * Added Sound when dead
-*Added Background sound
+* Added Background sound
+* Touch devices can move
 * Bugs
 Fixed left down and left right navigation
 Fixed Score when in crashed state
+
 
 * Known issue
 * Music does not stop when game is paused

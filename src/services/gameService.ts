@@ -12,8 +12,8 @@ import Sound from "./soundService";
 @Service()
 export default class Game {
   gameWindow: Rect = new Rect(0, 0, 0, 0);
-  keys: any = [];
-  bkMusic:any;
+  private keys: any = [];
+  private bkMusic: any;
   constructor(
     private assetManager: AssetManager,
     private obstacleService: ObstacleService,
@@ -21,7 +21,7 @@ export default class Game {
     private canvas: Canvas,
     private rhino: Rhino,
     private score: Score,
-    private sound: Sound,
+    private sound: Sound
   ) {
     this.skier = new Skier(0, 0);
     this.canvas = new Canvas(Constants.GAME_WIDTH, Constants.GAME_HEIGHT);
@@ -29,9 +29,9 @@ export default class Game {
     this.score = new Score(0, 0);
     this.sound = new Sound("public/sounds/failing.wav");
     this.bkMusic = new Sound("public/sounds/background.mp3");
-    this.startBackGroundMusic();
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
     document.addEventListener("keyup", this.handleKeyDown.bind(this));
+    this.startBackGroundMusic();
   }
 
   init() {
@@ -60,7 +60,12 @@ export default class Game {
     this.skier.checkIfSkierHitObstacle(this.obstacleService, this.assetManager);
     this.score.updateScore(this.skier);
     this.rhino.move(this.skier);
-    this.rhino.endIfRhinoCatchSkier(this.assetManager, this.skier,this.sound,this.bkMusic);
+    this.rhino.endIfRhinoCatchSkier(
+      this.assetManager,
+      this.skier,
+      this.sound,
+      this.bkMusic
+    );
     this.rhino.updateAction(this.skier);
   }
 
@@ -90,11 +95,11 @@ export default class Game {
       top + Constants.GAME_HEIGHT
     );
   }
-  startBackGroundMusic(){
-      this.bkMusic.play();
+  startBackGroundMusic() {
+    this.bkMusic.play();
   }
 
-  stopBackGroundMusic(){
+  stopBackGroundMusic() {
     this.bkMusic.stop();
   }
 
@@ -105,6 +110,14 @@ export default class Game {
     if (event.type === "keydown") {
       this.keys = this.keys || [];
       this.keys[event.which] = event.type == "keydown";
+    }
+    if (event.type === "touchmove") {
+      if(event.touches[0].screenX && event.touches[0].screenY){
+      this.skier.touchMovement(
+        event.touches[0].screenX,
+        event.touches[0].screenY
+      );
+      }
     }
     if (this.keys) {
       if (this.keys[Constants.KEYS.LEFT]) {
@@ -135,7 +148,7 @@ export default class Game {
         this.skier.turnRightDown();
         event.preventDefault();
       }
-if (this.keys[Constants.KEYS.DOWN] && this.keys[Constants.KEYS.LEFT]) {
+      if (this.keys[Constants.KEYS.DOWN] && this.keys[Constants.KEYS.LEFT]) {
         this.skier.turnLeftDown();
         event.preventDefault();
       }
