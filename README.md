@@ -116,7 +116,6 @@ We are looking forward to see what you come up with!
 * Added Score 
 * Added Sound when dead
 * Added Background sound
-* Touch devices can move
 * Bugs
 Fixed left down and left right navigation
 Fixed Score when in crashed state

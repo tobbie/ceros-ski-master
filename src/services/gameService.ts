@@ -111,14 +111,6 @@ export default class Game {
       this.keys = this.keys || [];
       this.keys[event.which] = event.type == "keydown";
     }
-    if (event.type === "touchmove") {
-      if(event.touches[0].screenX && event.touches[0].screenY){
-      this.skier.touchMovement(
-        event.touches[0].screenX,
-        event.touches[0].screenY
-      );
-      }
-    }
     if (this.keys) {
       if (this.keys[Constants.KEYS.LEFT]) {
         this.skier.turnLeft();
