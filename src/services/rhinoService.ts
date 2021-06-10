@@ -5,6 +5,7 @@ import Canvas from "../loaders/canvas";
 import Entity  from "../loaders/entity";
 import { intersectTwoRects, Rect } from "../utilities/utils";
 import Skier from "./skierService";
+import Sound from "./soundService";
 
 const RHINO_SKIER_STARTING_DISTANCE = 3000;
 const ACTION_DURATION = 700;
@@ -74,7 +75,7 @@ export default class Rhino extends Entity {
     this.x = skier_position_y - RHINO_SKIER_STARTING_DISTANCE * 2;
   }
 
-  endIfRhinoCatchSkier(assetManager: AssetManager, skier: Skier) {
+  endIfRhinoCatchSkier(assetManager: AssetManager, skier: Skier, sound: Sound,bkMusic: Sound) {
     if (this.action === Constants.RHINO_ACTIONS.CHASE_SKIER) {
       const asset = assetManager.getAsset(this.assetName);
       const RhinoBounds = new Rect(
@@ -94,6 +95,8 @@ export default class Rhino extends Entity {
       const collision = intersectTwoRects(RhinoBounds, SkierBounds);
 
       if (collision) {
+        bkMusic.stop();
+        sound.play();
         this.removeSkier(skier);
         this.setAction(Constants.RHINO_ACTIONS.LIFT_SKIER);
       }

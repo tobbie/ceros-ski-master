@@ -114,6 +114,19 @@ We are looking forward to see what you come up with!
 * Added reset feature that can be invoked at any point in the game. Known issue: when game is over, the reset button has to be pressed twice
 * Deployed the app to https://cerosja.herokuapp.com using github workflows for continuous integration and continuous deployment
 * Added Score 
+* Added Sound when dead
+*Added Background sound
 * Bugs
 Fixed left down and left right navigation
 Fixed Score when in crashed state
+
+* Known issue
+* Music does not stop when game is paused
+* Music does not reset when game has reset
+* Music does not continue after it has finished
+
+Main Theme (Overture) | The Grand Score by Alexander Nakarada | https://www.serpentsoundstudios.com
+Music promoted by https://www.chosic.com/
+Attribution 4.0 International (CC BY 4.0)
+https://creativecommons.org/licenses/by/4.0/
+ 

@@ -7,23 +7,29 @@ import { Rect } from "../utilities/utils";
 import Rhino from "../services/rhinoService";
 import { Service } from "typedi";
 import Score from "./scoreService";
+import Sound from "./soundService";
 
 @Service()
 export default class Game {
   gameWindow: Rect = new Rect(0, 0, 0, 0);
   keys: any = [];
+  bkMusic:any;
   constructor(
     private assetManager: AssetManager,
     private obstacleService: ObstacleService,
     private skier: Skier,
     private canvas: Canvas,
     private rhino: Rhino,
-    private score: Score
+    private score: Score,
+    private sound: Sound,
   ) {
     this.skier = new Skier(0, 0);
     this.canvas = new Canvas(Constants.GAME_WIDTH, Constants.GAME_HEIGHT);
     this.rhino = new Rhino(0, 0);
     this.score = new Score(0, 0);
+    this.sound = new Sound("public/sounds/failing.wav");
+    this.bkMusic = new Sound("public/sounds/background.mp3");
+    this.startBackGroundMusic();
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
     document.addEventListener("keyup", this.handleKeyDown.bind(this));
   }
@@ -54,7 +60,7 @@ export default class Game {
     this.skier.checkIfSkierHitObstacle(this.obstacleService, this.assetManager);
     this.score.updateScore(this.skier);
     this.rhino.move(this.skier);
-    this.rhino.endIfRhinoCatchSkier(this.assetManager, this.skier);
+    this.rhino.endIfRhinoCatchSkier(this.assetManager, this.skier,this.sound,this.bkMusic);
     this.rhino.updateAction(this.skier);
   }
 
@@ -83,6 +89,13 @@ export default class Game {
       left + Constants.GAME_WIDTH,
       top + Constants.GAME_HEIGHT
     );
+  }
+  startBackGroundMusic(){
+      this.bkMusic.play();
+  }
+
+  stopBackGroundMusic(){
+    this.bkMusic.stop();
   }
 
   handleKeyDown(event: any) {
