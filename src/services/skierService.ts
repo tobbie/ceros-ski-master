@@ -106,6 +106,11 @@ export default class Skier extends Entity {
     this.updateCrashedStatus();
   }
 
+  touchMovement(x:number, y:number) {
+    this.x = x;
+    this.y = y;
+  }
+
   turnDown() {
     this.setDirection(Constants.SKIER_DIRECTIONS.DOWN);
     this.updateLastDirection();
@@ -113,14 +118,14 @@ export default class Skier extends Entity {
   }
 
   turnLeftDown() {
-      this.setDirection(Constants.SKIER_DIRECTIONS.LEFT_DOWN);
-      this.updateLastDirection();
-      this.updateCrashedStatus();
+    this.setDirection(Constants.SKIER_DIRECTIONS.LEFT_DOWN);
+    this.updateLastDirection();
+    this.updateCrashedStatus();
   }
   turnRightDown() {
-        this.setDirection(Constants.SKIER_DIRECTIONS.RIGHT_DOWN);
-        this.updateLastDirection();
-        this.updateCrashedStatus();
+    this.setDirection(Constants.SKIER_DIRECTIONS.RIGHT_DOWN);
+    this.updateLastDirection();
+    this.updateCrashedStatus();
   }
   updateCrashedStatus() {
     if (this.direction != Constants.SKIER_DIRECTIONS.CRASH) {
