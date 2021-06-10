@@ -114,3 +114,6 @@ We are looking forward to see what you come up with!
 * Added reset feature that can be invoked at any point in the game. Known issue: when game is over, the reset button has to be pressed twice
 * Deployed the app to https://cerosja.herokuapp.com using github workflows for continuous integration and continuous deployment
 * Added Score 
+* Bugs
+Fixed left down and left right navigation
+Fixed Score when in crashed state

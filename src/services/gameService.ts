@@ -1,16 +1,17 @@
 import AssetManager from "../loaders/assetManager";
 import * as Constants from "../constants/consts";
 import ObstacleService from "../services/obstacleService";
-import  Canvas  from "../loaders/canvas";
-import Skier from "../services/skierService"
+import Canvas from "../loaders/canvas";
+import Skier from "../services/skierService";
 import { Rect } from "../utilities/utils";
-import Rhino from "../services/rhinoService"
+import Rhino from "../services/rhinoService";
 import { Service } from "typedi";
 import Score from "./scoreService";
 
 @Service()
 export default class Game {
   gameWindow: Rect = new Rect(0, 0, 0, 0);
+  keys: any = [];
   constructor(
     private assetManager: AssetManager,
     private obstacleService: ObstacleService,
@@ -24,6 +25,7 @@ export default class Game {
     this.rhino = new Rhino(0, 0);
     this.score = new Score(0, 0);
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
+    document.addEventListener("keyup", this.handleKeyDown.bind(this));
   }
 
   init() {
@@ -84,31 +86,46 @@ export default class Game {
   }
 
   handleKeyDown(event: any) {
-    switch (event.which) {
-      case Constants.KEYS.LEFT:
+    if (event.type === "keyup") {
+      this.keys[event.which] = event.type == "keydown";
+    }
+    if (event.type === "keydown") {
+      this.keys = this.keys || [];
+      this.keys[event.which] = event.type == "keydown";
+    }
+    if (this.keys) {
+      if (this.keys[Constants.KEYS.LEFT]) {
         this.skier.turnLeft();
         event.preventDefault();
-        break;
-      case Constants.KEYS.RIGHT:
+      }
+      if (this.keys[Constants.KEYS.RIGHT]) {
         this.skier.turnRight();
         event.preventDefault();
-        break;
-      case Constants.KEYS.UP:
+      }
+      if (this.keys[Constants.KEYS.UP]) {
         this.skier.turnUp();
         event.preventDefault();
-        break;
-      case Constants.KEYS.DOWN:
+      }
+      if (this.keys[Constants.KEYS.DOWN]) {
         this.skier.turnDown();
         event.preventDefault();
-        break;
-      case Constants.KEYS.SPACE:
+      }
+      if (this.keys[Constants.KEYS.SPACE]) {
         this.skier.pause();
         event.preventDefault();
-        break;
-      case Constants.KEYS.Reset:
+      }
+      if (this.keys[Constants.KEYS.Reset]) {
         this.resetGame();
         event.preventDefault();
-        break;
+      }
+      if (this.keys[Constants.KEYS.DOWN] && this.keys[Constants.KEYS.RIGHT]) {
+        this.skier.turnRightDown();
+        event.preventDefault();
+      }
+if (this.keys[Constants.KEYS.DOWN] && this.keys[Constants.KEYS.LEFT]) {
+        this.skier.turnLeftDown();
+        event.preventDefault();
+      }
     }
   }
 }
