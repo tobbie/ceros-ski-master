@@ -91,21 +91,41 @@ export default class Skier extends Entity {
   turnLeft() {
     this.setDirection(Constants.SKIER_DIRECTIONS.LEFT);
     this.updateLastDirection();
+    this.updateCrashedStatus();
   }
 
   turnRight() {
     this.setDirection(Constants.SKIER_DIRECTIONS.RIGHT);
     this.updateLastDirection();
+    this.updateCrashedStatus();
   }
 
   turnUp() {
     this.setDirection(Constants.SKIER_DIRECTIONS.UP);
     this.updateLastDirection();
+    this.updateCrashedStatus();
   }
 
   turnDown() {
     this.setDirection(Constants.SKIER_DIRECTIONS.DOWN);
     this.updateLastDirection();
+    this.updateCrashedStatus();
+  }
+
+  turnLeftDown() {
+      this.setDirection(Constants.SKIER_DIRECTIONS.LEFT_DOWN);
+      this.updateLastDirection();
+      this.updateCrashedStatus();
+  }
+  turnRightDown() {
+        this.setDirection(Constants.SKIER_DIRECTIONS.RIGHT_DOWN);
+        this.updateLastDirection();
+        this.updateCrashedStatus();
+  }
+  updateCrashedStatus() {
+    if (this.direction != Constants.SKIER_DIRECTIONS.CRASH) {
+      this.isCrashed = false;
+    }
   }
 
   pause() {
