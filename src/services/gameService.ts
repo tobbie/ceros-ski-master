@@ -76,6 +76,7 @@ export default class Game {
     this.isPaused = false;
     this.obstacleService.restartObstacle();
     this.score.resetScore();
+    this.bkMusic.reset("public/sounds/background.mp3");
   }
 
   updateScore() {
@@ -85,7 +86,7 @@ export default class Game {
     }
   }
 
-  updateLive(){
+  updateLive() {
     this.score.updateLive(this.skier.lives);
   }
 
@@ -125,6 +126,18 @@ export default class Game {
       this.canvas.width / 1.2,
       100
     );
+  }
+
+  pause() {
+    if (this.isPaused) {
+      this.bkMusic.play();
+      this.skier.setDirection(this.skier.lastDirection);
+      this.isPaused = false;
+    } else {
+      this.bkMusic.stop();
+      this.isPaused = true;
+      this.skier.setDirection(Constants.SKIER_DIRECTIONS.PAUSE);
+    }
   }
   calculateGameWindow() {
     const skierPosition = this.skier.getPosition();
@@ -188,16 +201,6 @@ export default class Game {
         this.skier.turnLeftDown();
         event.preventDefault();
       }
-    }
-  }
-
-  pause() {
-    if (this.isPaused) {
-      this.skier.setDirection(this.skier.lastDirection);
-      this.isPaused = false;
-    } else {
-      this.isPaused = true;
-      this.skier.setDirection(Constants.SKIER_DIRECTIONS.PAUSE);
     }
   }
 }
