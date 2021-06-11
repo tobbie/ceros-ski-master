@@ -19,7 +19,7 @@ export default class ScoreService {
   }
 
   updateScore(skier:Skier){
-      if(!skier.isPaused && !skier.isCrashed){
+      if(!skier.isCrashed){
          this.score += 1;
       }
   }
