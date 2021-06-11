@@ -9,8 +9,6 @@ export default class Sound {
     this.sound.setAttribute("preload", "auto");
     this.sound.setAttribute("controls", "none");
     this.sound.style.display = "none";
-    // in the js code unmute the audio once the event happened
-    this.sound.muted = false;
     document.body.appendChild(this.sound);
   }
 
@@ -21,5 +19,9 @@ export default class Sound {
   }
   stop() {
     this.sound.pause();
+  }
+  autoplay(){
+    this.sound.setAttribute("autoplay", "true");
+    this.sound.setAttribute("muted", "true");
   }
 }

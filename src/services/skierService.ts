@@ -8,18 +8,16 @@ import AssetManager from "../loaders/assetManager";
 @Service()
 export default class Skier extends Entity {
   assetName: string = Constants.SKIER_DOWN;
-  isPaused: boolean = false;
   direction: number = Constants.SKIER_DIRECTIONS.DOWN;
   lastDirection: number = this.direction;
   speed: number = Constants.SKIER_STARTING_SPEED;
-  isCrashed: boolean = false;
+   isCrashed: boolean = false;
   constructor(x: number, y: number) {
     super(x, y);
   }
 
   restartSkier() {
     this.assetName = Constants.SKIER_DOWN;
-    this.isPaused = false;
     this.direction = Constants.SKIER_DIRECTIONS.DOWN;
     this.lastDirection = this.direction;
     this.speed = Constants.SKIER_STARTING_SPEED;
@@ -106,10 +104,6 @@ export default class Skier extends Entity {
     this.updateCrashedStatus();
   }
 
-  touchMovement(x:number, y:number) {
-    this.x = x;
-    this.y = y;
-  }
 
   turnDown() {
     this.setDirection(Constants.SKIER_DIRECTIONS.DOWN);
@@ -133,15 +127,6 @@ export default class Skier extends Entity {
     }
   }
 
-  pause() {
-    if (this.isPaused) {
-      this.setDirection(this.lastDirection);
-      this.isPaused = false;
-    } else {
-      this.isPaused = true;
-      this.setDirection(Constants.SKIER_DIRECTIONS.PAUSE);
-    }
-  }
 
   updateLastDirection() {
     this.setLastDirection(this.direction);
