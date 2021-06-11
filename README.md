@@ -20,8 +20,7 @@ npm i
 npm run start:dev
 ```
 
-# Publishing live streams
-## Heroku using gitflows
+# Publishing to Heroku using gitflows
 ```
 I am assuming you have created your app on heroku
 Go to github/workflows folder
