@@ -12,7 +12,8 @@ export default class Skier extends Entity {
   lastDirection: number = this.direction;
   speed: number = Constants.SKIER_STARTING_SPEED;
   isCrashed: boolean = false;
-  lives: number = 5;
+  private initLive: number = 5;
+  lives: number = this.initLive;
   constructor(x: number, y: number) {
     super(x, y);
   }
@@ -24,6 +25,8 @@ export default class Skier extends Entity {
     this.speed = Constants.SKIER_STARTING_SPEED;
     this.x = 0;
     this.y = 0;
+    this.lives = this.initLive;
+    this.isCrashed = false;
   }
 
   setDirection(direction: number) {
@@ -192,12 +195,11 @@ export default class Skier extends Entity {
     });
 
     if (collision) {
-
       this.isCrashed = true;
-       if (this.direction !== Constants.SKIER_DIRECTIONS.CRASH) {
-         console.log(this.direction);
-         this.reduceLives();
-       }
+      if (this.direction !== Constants.SKIER_DIRECTIONS.CRASH) {
+        console.log(this.direction);
+        this.reduceLives();
+      }
       this.setDirection(Constants.SKIER_DIRECTIONS.CRASH);
     }
   }
