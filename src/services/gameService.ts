@@ -53,15 +53,13 @@ export default class Game {
   }
 
   updateGameWindow() {
-    this.drawInstuctions();
+    this.drawInstructions();
     this.skier.move();
     const previousGameWindow = this.gameWindow;
     this.calculateGameWindow();
-
     this.obstacleService.placeNewObstacle(this.gameWindow, previousGameWindow);
     this.skier.checkIfSkierHitObstacle(this.obstacleService, this.assetManager);
-    if(!this.isPaused)
-    this.score.updateScore(this.skier);
+    this.updateScore();
     this.rhino.move(this.skier);
     this.rhino.endIfRhinoCatchSkier(
       this.assetManager,
@@ -80,6 +78,17 @@ export default class Game {
     this.score.resetScore();
   }
 
+  updateScore() {
+    if (!this.isPaused && !this.skier.isCrashed) {
+      this.score.updateScore();
+      this.updateLive();
+    }
+  }
+
+  updateLive(){
+    this.score.updateLive(this.skier.lives);
+  }
+
   drawGameWindow() {
     this.canvas.setDrawOffset(this.gameWindow.left, this.gameWindow.top);
     this.score.drawScore(this.canvas);
@@ -87,7 +96,7 @@ export default class Game {
     this.obstacleService.drawObstacles(this.canvas, this.assetManager);
     this.rhino.drawRhino(this.canvas, this.assetManager);
   }
-  drawInstuctions() {
+  drawInstructions() {
     this.canvas.drawText(
       "18px Consolas",
       "Red",

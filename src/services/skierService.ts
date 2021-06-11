@@ -11,7 +11,8 @@ export default class Skier extends Entity {
   direction: number = Constants.SKIER_DIRECTIONS.DOWN;
   lastDirection: number = this.direction;
   speed: number = Constants.SKIER_STARTING_SPEED;
-   isCrashed: boolean = false;
+  isCrashed: boolean = false;
+  lives: number = 5;
   constructor(x: number, y: number) {
     super(x, y);
   }
@@ -35,6 +36,11 @@ export default class Skier extends Entity {
   }
   updateAsset() {
     this.assetName = Constants.SKIER_DIRECTION_ASSET[this.direction];
+  }
+  reduceLives() {
+    if (this.lives && this.lives > 0) {
+      this.lives--;
+    }
   }
 
   move() {
@@ -104,7 +110,6 @@ export default class Skier extends Entity {
     this.updateCrashedStatus();
   }
 
-
   turnDown() {
     this.setDirection(Constants.SKIER_DIRECTIONS.DOWN);
     this.updateLastDirection();
@@ -126,7 +131,6 @@ export default class Skier extends Entity {
       this.isCrashed = false;
     }
   }
-
 
   updateLastDirection() {
     this.setLastDirection(this.direction);
@@ -188,7 +192,12 @@ export default class Skier extends Entity {
     });
 
     if (collision) {
+
       this.isCrashed = true;
+       if (this.direction !== Constants.SKIER_DIRECTIONS.CRASH) {
+         console.log(this.direction);
+         this.reduceLives();
+       }
       this.setDirection(Constants.SKIER_DIRECTIONS.CRASH);
     }
   }
